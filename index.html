@@ -10,26 +10,23 @@
 </head>
 
 <body>
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         Telegram.WebApp.expand();
 
-        function setViewportHeight() {
-            const height = Telegram.WebApp.viewportHeight;
-            document.documentElement.style.setProperty('--vh', `${height}px`);
-            console.log('Viewport height:', height);
+        function setSafeAreaAndHeight() {
+            const vh = Telegram.WebApp.viewportHeight;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            document.documentElement.style.setProperty('--safe-area-top', `${Telegram.WebApp.safeAreaInset.top}px`);
+            console.log('Viewport height set to:', vh);
         }
 
-        window.addEventListener('load', function () {
+        window.addEventListener('load', () => {
             Telegram.WebApp.ready();
-            document.documentElement.style.setProperty('--safe-area-top', Telegram.WebApp.safeAreaInset.top + 'px');
-            setViewportHeight();
+            setSafeAreaAndHeight();
         });
 
-        Telegram.WebApp.onEvent('viewportChanged', function () {
-            setViewportHeight();
-        });
+        Telegram.WebApp.onEvent('viewportChanged', setSafeAreaAndHeight);
     </script>
 
     <img id="fullscreen-image" src="static/1.png" alt="Снимок" />
