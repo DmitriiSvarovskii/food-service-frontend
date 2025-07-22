@@ -14,18 +14,21 @@
 
     <script>
         Telegram.WebApp.expand();
-        function enterFullscreen() {
-            if (!Telegram.WebApp.isFullscreen) {
-                Telegram.WebApp.requestFullscreen();
-            }
+
+        function setViewportHeight() {
+            const height = Telegram.WebApp.viewportHeight;
+            document.documentElement.style.setProperty('--vh', `${height}px`);
+            console.log('Viewport height:', height);
         }
-        Telegram.WebApp.onEvent('viewportChanged', function (event) {
-            enterFullscreen();
-        });
+
         window.addEventListener('load', function () {
             Telegram.WebApp.ready();
             document.documentElement.style.setProperty('--safe-area-top', Telegram.WebApp.safeAreaInset.top + 'px');
-            console.log('Safe area top:', Telegram.WebApp.safeAreaInset.top);
+            setViewportHeight();
+        });
+
+        Telegram.WebApp.onEvent('viewportChanged', function () {
+            setViewportHeight();
         });
     </script>
 
