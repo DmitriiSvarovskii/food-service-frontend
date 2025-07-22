@@ -12,21 +12,17 @@
 <body>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        Telegram.WebApp.expand();
+        Telegram.WebApp.ready();
+        Telegram.WebApp.setHeaderColor("bg_color");
+        Telegram.WebApp.requestFullscreen();  // работает в supported environment
 
-        function setSafeAreaAndHeight() {
-            const vh = Telegram.WebApp.viewportHeight;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        function setSafeArea() {
             document.documentElement.style.setProperty('--safe-area-top', `${Telegram.WebApp.safeAreaInset.top}px`);
-            console.log('Viewport height set to:', vh);
+            document.documentElement.style.setProperty('--vh', `${Telegram.WebApp.viewportHeight}px`);
         }
 
-        window.addEventListener('load', () => {
-            Telegram.WebApp.ready();
-            setSafeAreaAndHeight();
-        });
-
-        Telegram.WebApp.onEvent('viewportChanged', setSafeAreaAndHeight);
+        setSafeArea();
+        Telegram.WebApp.onEvent('viewportChanged', setSafeArea);
     </script>
 
     <img id="fullscreen-image" src="static/1.png" alt="Снимок" />
