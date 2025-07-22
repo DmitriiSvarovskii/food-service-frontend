@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    cursor: pointer;
+}
